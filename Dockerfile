@@ -2,7 +2,7 @@ FROM debian:jessie
 MAINTAINER Daniel Blackhall <dblackhall@gmail.com>
 #Steps to follow are here: http://docs.brewpi.com/manual-brewpi-install/manual-brewpi-install.html
 
-EXPOSE 8111
+EXPOSE 80
 
 RUN apt-get update && apt-get -y install git python python-dev python-pip cron
 

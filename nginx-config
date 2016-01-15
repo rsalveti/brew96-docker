@@ -1,5 +1,5 @@
 server {
-        listen       8111;
+        listen       80;
         server_name  debian.brewpi.local;
         root /var/www;
         index index.php index.html index.htm index.nginx-debian.html;
