@@ -28,13 +28,12 @@ RUN apt-get -y install arduino-core
 
 
 #Step 4 Using git for BrewPisettingss
-RUN git clone https://github.com/BrewPi/brewpi-script /home/brewpi
+RUN git clone --branch 0.3.8 --depth 1 https://github.com/BrewPi/brewpi-script /home/brewpi
 RUN git clone https://github.com/BrewPi/brewpi-www /var/www
 
 
 
 #Step 3 Setting up users and permissions
-
 RUN useradd -m -k /dev/null -G www-data,dialout brewpi
 RUN echo 'brewpi:worstpasswordever' | chpasswd
 
@@ -51,9 +50,10 @@ RUN find /var/www -type f -exec chmod g+rwx {} \;
 
 
 #Step 5 Modifying BrewPi config files
-
 COPY brewpi-config.cfg /home/brewpi/settings/config.cfg
-RUN sed -i.bak "s/ser = serial.Serial(/ser = serial.serial_for_url(/g" /home/brewpi/BrewPiUtil.py
+RUN sed -i.bak "s#inWaiting = ser.inWaiting()#inWaiting = ser.readline()#" /home/brewpi/brewpi.py
+RUN sed -i.bak "s#newData = ser.read(inWaiting)#newData = inWaiting#" /home/brewpi/brewpi.py
+RUN sed -i.bak "s#ser = serial.Serial(port, baudrate=baud_rate, timeout=time_out)#ser = serial.serial_for_url(port, baudrate=baud_rate, timeout=0.6)#" /home/brewpi/BrewPiUtil.py
 
 
 
@@ -64,5 +64,7 @@ RUN chmod 0644 /etc/cron.d/brewpi
 
 
 # Start the cron daemon shell
+COPY configure-and-start.sh configure-and-start.sh
+RUN chmod +x configure-and-start.sh
+CMD ./configure-and-start.sh
 
-CMD service nginx start && service php5-fpm start && cron && /bin/bash
