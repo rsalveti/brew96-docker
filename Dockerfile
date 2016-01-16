@@ -27,7 +27,7 @@ RUN apt-get -y install arduino-core
 
 
 
-#Step 4 Using git for BrewPisettings
+#Step 4 Using git for BrewPi
 RUN git clone --branch legacy --depth 1 https://github.com/BrewPi/brewpi-script /home/brewpi
 RUN git clone https://github.com/BrewPi/brewpi-www /var/www
 
@@ -51,15 +51,19 @@ RUN find /var/www -type f -exec chmod g+rwx {} \;
 
 #Step 5 Modifying BrewPi config files
 COPY brewpi-config.cfg /home/brewpi/settings/config.cfg
-RUN sed -i.bak "s#inWaiting = ser.inWaiting()#inWaiting = ser.readline()#" /home/brewpi/brewpi.py
-RUN sed -i.bak "s#newData = ser.read(inWaiting)#newData = inWaiting#" /home/brewpi/brewpi.py
-RUN sed -i.bak "s#ser = serial.Serial(port, baudrate=baud_rate, timeout=time_out)#ser = serial.serial_for_url(port, baudrate=baud_rate, timeout=0.6)#" /home/brewpi/BrewPiUtil.py
 
 
 
 #Step 6 Cron Job
 COPY brewpi-crontab /etc/cron.d/brewpi
 RUN chmod 0644 /etc/cron.d/brewpi
+
+
+
+#Customised serial over wifi changes
+RUN sed -i.bak "s#in_waiting = self.ser.inWaiting()#inWaiting = self.ser.readline()#" /home/brewpi/backgroundserial.py
+RUN sed -i.bak "s#new_data = self.ser.read(in_waiting)#newData = inWaiting#" /home/brewpi/backgroundserial.py
+RUN sed -i.bak "s#ser = serial.Serial(port, baudrate=baud_rate, timeout=time_out, write_timeout=0)#ser = serial.serial_for_url(port, baudrate=baud_rate, timeout=0.6, write_timeout=0)#" /home/brewpi/BrewPiUtil.py
 
 
 
