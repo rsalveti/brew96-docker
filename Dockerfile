@@ -27,8 +27,8 @@ RUN apt-get -y install arduino-core
 
 
 
-#Step 4 Using git for BrewPisettingss
-RUN git clone --branch 0.3.8 --depth 1 https://github.com/BrewPi/brewpi-script /home/brewpi
+#Step 4 Using git for BrewPisettings
+RUN git clone --branch legacy --depth 1 https://github.com/BrewPi/brewpi-script /home/brewpi
 RUN git clone https://github.com/BrewPi/brewpi-www /var/www
 
 
