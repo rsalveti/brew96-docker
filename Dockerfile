@@ -37,9 +37,6 @@ RUN git clone https://github.com/BrewPi/brewpi-www /var/www
 RUN useradd -m -k /dev/null -G www-data,dialout brewpi
 RUN echo 'brewpi:worstpasswordever' | chpasswd
 
-#RUN usermod -a -G www-data pi
-#RUN usermod -a -G brewpi pi
-
 RUN chown -R www-data:www-data /var/www
 RUN chown -R brewpi:brewpi /home/brewpi
 RUN find /home/brewpi -type f -exec chmod g+rwx {} \;
@@ -61,9 +58,7 @@ RUN chmod 0644 /etc/cron.d/brewpi
 
 
 #Customised serial over wifi changes
-RUN sed -i.bak "s#in_waiting = self.ser.inWaiting()#inWaiting = self.ser.readline()#" /home/brewpi/backgroundserial.py
-RUN sed -i.bak "s#new_data = self.ser.read(in_waiting)#newData = inWaiting#" /home/brewpi/backgroundserial.py
-RUN sed -i.bak "s#ser = serial.Serial(port, baudrate=baud_rate, timeout=time_out, write_timeout=0)#ser = serial.serial_for_url(port, baudrate=baud_rate, timeout=0.6, write_timeout=0)#" /home/brewpi/BrewPiUtil.py
+RUN sed -i.bak "s#ser = serial.Serial(port, baudrate=baud_rate, timeout=time_out, write_timeout=0)#ser = serial.serial_for_url(port, baudrate=baud_rate, timeout=0.6, write_timeout=0.6)#" /home/brewpi/BrewPiUtil.py
 
 
 
