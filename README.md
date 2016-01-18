@@ -10,6 +10,8 @@ port = socket://192.168.0.25:23
 altport = socket://192.168.0.25:23
 ```
 
+Optionally the environment variable `TZ` can be set, this will set the timezone of the docker container. If not assigned, the UTC timezone is used.
+
 The brewpi-script is using the legacy branch, this is because I am using an Arduino and esp8266 (despite the brewpi spark looking completely awesome!).
 
 Hosted on Docker Hub: https://hub.docker.com/r/seeflat/brewpi/

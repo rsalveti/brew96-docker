@@ -27,12 +27,6 @@ RUN apt-get -y install arduino-core
 
 
 
-#Step 4 Using git for BrewPi
-RUN git clone --branch legacy --depth 1 https://github.com/BrewPi/brewpi-script /home/brewpi
-RUN git clone https://github.com/BrewPi/brewpi-www /var/www
-
-
-
 #Step 3 Setting up users and permissions
 RUN useradd -m -k /dev/null -G www-data,dialout brewpi
 RUN echo 'brewpi:worstpasswordever' | chpasswd
@@ -43,6 +37,12 @@ RUN find /home/brewpi -type f -exec chmod g+rwx {} \;
 RUN find /home/brewpi -type d -exec chmod g+rwxs {} \;
 RUN find /var/www -type d -exec chmod g+rwxs {} \;
 RUN find /var/www -type f -exec chmod g+rwx {} \;
+
+
+
+#Step 4 Using git for BrewPi
+RUN git clone --branch legacy --depth 1 https://github.com/BrewPi/brewpi-script /home/brewpi
+RUN git clone https://github.com/BrewPi/brewpi-www /var/www
 
 
 
