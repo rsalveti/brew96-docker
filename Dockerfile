@@ -4,7 +4,7 @@ MAINTAINER Daniel Blackhall <dblackhall@gmail.com>
 
 EXPOSE 80
 
-RUN apt-get update && apt-get -y install git python python-dev python-pip cron
+RUN apt-get update && apt-get -y install git python python-dev python-pip cron sudo
 
 
 
@@ -37,6 +37,7 @@ RUN find /home/brewpi -type f -exec chmod g+rwx {} \;
 RUN find /home/brewpi -type d -exec chmod g+rwxs {} \;
 RUN find /var/www -type d -exec chmod g+rwxs {} \;
 RUN find /var/www -type f -exec chmod g+rwx {} \;
+RUN /home/brewpi/utils/fixPermissions.sh
 
 
 
