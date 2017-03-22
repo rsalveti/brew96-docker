@@ -36,3 +36,6 @@ RUN chmod 0644 /etc/cron.d/brewpi
 COPY configure-and-start.sh configure-and-start.sh
 RUN chmod +x configure-and-start.sh
 ENTRYPOINT ["/configure-and-start.sh"]
+
+# Default to simply dump the brewpi logs
+CMD tail -f /home/brewpi/logs/*
