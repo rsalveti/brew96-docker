@@ -1,17 +1,5 @@
-# brewpi
-Docker container to run brewpi-script and brewpi-www
+# brew96 - brewpi for 96boards with Sensors Mezzanine
 
-To use this container set an environment variable `AVR` which should be the address and port of the arduino/esp8266 e.g `192.168.0.25:23`
-The port will be written to settings/config.cfg and prefixed with socket://
-The final config.cfg file should look like:
-
-```
-port = socket://192.168.0.25:23
-altport = socket://192.168.0.25:23
-```
+Docker container that uses the legacy brewpi branch (arduino compatible), created to run on 96boards CE compatible platforms with the Sensors Mezzanine (arduino).
 
 Optionally the environment variable `TZ` can be set, this will set the timezone of the docker container. If not assigned, the UTC timezone is used.
-
-The brewpi-script is using the legacy branch, this is because I am using an Arduino and esp8266 (despite the brewpi spark looking completely awesome!).
-
-Hosted on Docker Hub: https://hub.docker.com/r/seeflat/brewpi/
