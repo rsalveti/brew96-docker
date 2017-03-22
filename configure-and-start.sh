@@ -10,5 +10,9 @@ service nginx start
 service php5-fpm start
 cron
 
+# Workaround https://github.com/docker/docker/issues/16813
+touch /etc/crontab
+touch /etc/cron.d/*
+
 # Execute all the rest
 exec "$@"
