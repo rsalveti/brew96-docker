@@ -24,20 +24,13 @@ RUN useradd -m -k /dev/null -G www-data,dialout brewpi
 RUN echo 'brewpi:brewpi' | chpasswd
 RUN chown -R www-data:www-data /var/www
 RUN chown -R brewpi:brewpi /home/brewpi
-RUN find /home/brewpi -type f -exec chmod g+rwx {} \;
-RUN find /home/brewpi -type d -exec chmod g+rwxs {} \;
-RUN find /var/www -type d -exec chmod g+rwxs {} \;
-RUN find /var/www -type f -exec chmod g+rwx {} \;
 
-# Clone BrewPi legacy branch
-RUN git clone --branch legacy --depth 1 https://github.com/BrewPi/brewpi-script /home/brewpi
-RUN git clone https://github.com/BrewPi/brewpi-www /var/www
+# Run BrewPi code & data from external volume (persist data)
+VOLUME ["/home/brewpi", "/var/www"]
 
 # Set up BrewPi config files
-COPY brewpi-config.cfg /home/brewpi/settings/config.cfg
 COPY brewpi-crontab /etc/cron.d/brewpi
 RUN chmod 0644 /etc/cron.d/brewpi
-RUN /home/brewpi/utils/fixPermissions.sh
 
 # Start the cron daemon shell
 COPY configure-and-start.sh configure-and-start.sh
