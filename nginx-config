@@ -1,6 +1,6 @@
 server {
         listen       80;
-        server_name  debian.brewpi.local;
+        server_name  brew96.local;
         root /var/www;
         index index.php index.html index.htm index.nginx-debian.html;
         location / {
