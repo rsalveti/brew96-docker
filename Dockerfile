@@ -35,4 +35,4 @@ RUN chmod 0644 /etc/cron.d/brewpi
 # Start the cron daemon shell
 COPY configure-and-start.sh configure-and-start.sh
 RUN chmod +x configure-and-start.sh
-CMD ./configure-and-start.sh
+ENTRYPOINT ["/configure-and-start.sh"]
