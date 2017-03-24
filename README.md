@@ -8,6 +8,18 @@ Optionally the environment variable `TZ` can be set, this will set the timezone 
 
 `$ docker build -t brew96-docker .`
 
+### Using pre-built containers
+
+You can also use the pre-built docker container available at https://hub.docker.com/r/rsalveti/brewpi-docker-arm64/ and https://hub.docker.com/r/rsalveti/brewpi-docker-armhf/.
+
+ARM64 host machine:
+
+`$ docker pull rsalveti/brewpi-docker-arm64`
+
+ARMHF (32-bit) host machine:
+
+`$ docker pull rsalveti/brewpi-docker-armhf`
+
 ## Flashing Arduino
 
 BrewPi requires a specific firmware to be flashed into the Arduino chip (responsible for handling the sensor data and reporting back to the brewpi service).
