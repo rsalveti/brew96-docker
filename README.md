@@ -40,7 +40,7 @@ Since BrewPi writes the log, configs and data under the same folder used by the 
 
 ```
 $ git clone --branch legacy --depth 1 https://github.com/BrewPi/brewpi-script ~/brewpi/home
-$ git clone https://github.com/BrewPi/brewpi-www ~/brewpi/www
+$ git clone --branch legacy --depth 1 https://github.com/BrewPi/brewpi-www ~/brewpi/www
 # Copy custom config, required for the UART/arduino port
 $ cp brewpi-config.cfg ~/brewpi/home/settings/config.cfg
 ```
